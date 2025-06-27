@@ -1,62 +1,131 @@
-# Express.js RESTful API Assignment
+# 📦 Express.js RESTful API - Product Management
 
-This assignment focuses on building a RESTful API using Express.js, implementing proper routing, middleware, and error handling.
+This project is part of Week 2 of the PLP MERN Stack program. It is a RESTful API built using **Express.js** for managing products with full CRUD operations, authentication, validation, filtering, pagination, and error handling.
 
-## Assignment Overview
+---
 
-You will:
-1. Set up an Express.js server
-2. Create RESTful API routes for a product resource
-3. Implement custom middleware for logging, authentication, and validation
-4. Add comprehensive error handling
-5. Develop advanced features like filtering, pagination, and search
+## 🚀 How to Run the Server
 
-## Getting Started
+### 1. Clone the repository
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install dependencies:
-   ```
-   npm install
-   ```
-4. Run the server:
-   ```
-   npm start
-   ```
+```bash
+git clone https://github.com/PLP-MERN-Stack-Development/week-2-express-js-assignment-jacobkau.git
+cd week-2-express-js-assignment-jacobkau
+```
 
-## Files Included
+### 2. Install dependencies
 
-- `Week2-Assignment.md`: Detailed assignment instructions
-- `server.js`: Starter Express.js server file
-- `.env.example`: Example environment variables file
+```bash
+npm install
+```
 
-## Requirements
+### 3. Create a `.env` file based on `.env.example`
 
-- Node.js (v18 or higher)
-- npm or yarn
-- Postman, Insomnia, or curl for API testing
+```env
+PORT=3000
+API_KEY=mysecrettoken
+```
 
-## API Endpoints
+### 4. Start the server
 
-The API will have the following endpoints:
+```bash
+npm run dev
+```
 
-- `GET /api/products`: Get all products
-- `GET /api/products/:id`: Get a specific product
-- `POST /api/products`: Create a new product
-- `PUT /api/products/:id`: Update a product
-- `DELETE /api/products/:id`: Delete a product
+> The server will run at: [http://localhost:3000](http://localhost:3000)
 
-## Submission
+---
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+## 📘 API Endpoints
 
-1. Complete all the required API endpoints
-2. Implement the middleware and error handling
-3. Document your API in the README.md
-4. Include examples of requests and responses
+| Method | Endpoint                  | Description                        | Protected |
+| ------ | ------------------------- | ---------------------------------- | --------- |
+| GET    | `/api/products`           | List all products (with filters)   | ❌         |
+| GET    | `/api/products/:id`       | Get a product by ID                | ❌         |
+| POST   | `/api/products`           | Create a new product               | ✅         |
+| PUT    | `/api/products/:id`       | Update an existing product         | ✅         |
+| DELETE | `/api/products/:id`       | Delete a product                   | ✅         |
+| GET    | `/api/products/search?q=` | Search products by name            | ❌         |
+| GET    | `/api/products/stats`     | Get count of products per category | ❌         |
 
-## Resources
+> ✅ Protected endpoints require `x-api-key` header with a valid API key.
 
-- [Express.js Documentation](https://expressjs.com/)
-- [RESTful API Design Best Practices](https://restfulapi.net/)
-- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) 
+---
+
+## 🔐 Authentication
+
+Send an API key in the headers for protected routes:
+
+```http
+x-api-key: mysecrettoken
+```
+
+---
+
+## 🔎 Filtering, Search & Pagination
+
+* `GET /api/products?category=electronics&page=1&limit=2`
+* `GET /api/products/search?q=phone`
+* `GET /api/products/stats`
+
+---
+
+## 🧪 Sample Requests
+
+### ✅ Create a product
+
+```bash
+curl -X POST http://localhost:3000/api/products \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: mysecrettoken" \
+  -d '{"name":"Tablet", "description":"10-inch", "price":299.99, "category":"electronics", "inStock":true}'
+```
+
+### 🔄 Update a product
+
+```bash
+curl -X PUT http://localhost:3000/api/products/1 \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: mysecrettoken" \
+  -d '{"price":1199.99}'
+```
+
+### 🗑️ Delete a product
+
+```bash
+curl -X DELETE http://localhost:3000/api/products/1 \
+  -H "x-api-key: mysecrettoken"
+```
+
+---
+
+## ⚙️ Technologies Used
+
+* Node.js
+* Express.js
+* body-parser
+* dotenv
+* uuid
+
+---
+
+## 📁 Project Structure
+
+```
+├── controllers/
+├── middleware/
+├── routes/
+├── utils/
+├── server.js
+├── .env.example
+├── package.json
+└── README.md
+```
+
+---
+
+## 👫 Author
+
+Jacob Kau – [PLP-MERN-Stack-Development](https://github.com/PLP-MERN-Stack-Development)
+
+---
